@@ -71,7 +71,7 @@
           </el-form-item>
         </el-row>
       </el-form>
-      <div class="table-content">
+      <div class="table-content table-card">
         <el-table class="tables" :size="contents.tableSize" :show-header="contents.tableShowHeader"
             :header-row-style="headerRowStyle" :header-cell-style="headerCellStyle"
             :border="contents.tableBorder"
@@ -89,6 +89,31 @@
                 width="50">
             </el-table-column>
             <el-table-column label="索引" :align="contents.tableAlign"  v-if="contents.tableIndex" type="index" width="50" />
+                <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign"
+                    prop="id"
+                   :header-align="contents.tableAlign"
+		    label="ID"
+                    width="80">
+		     <template slot-scope="scope">
+                       {{scope.row.id}}
+                     </template>
+                </el-table-column>
+                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign"
+                    prop="zhanghao"
+                   :header-align="contents.tableAlign"
+		    label="学员账号">
+		     <template slot-scope="scope">
+                       {{scope.row.zhanghao}}
+                     </template>
+                </el-table-column>
+                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign"
+                    prop="xingming"
+                   :header-align="contents.tableAlign"
+		    label="学员姓名">
+		     <template slot-scope="scope">
+                       {{scope.row.xingming}}
+                     </template>
+                </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
                     prop="jiaoliangonghao"
                    :header-align="contents.tableAlign"
@@ -113,34 +138,26 @@
                        {{scope.row.liancheshijian}}
                      </template>
                 </el-table-column>
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="zhanghao"
-                   :header-align="contents.tableAlign"
-		    label="账号">
-		     <template slot-scope="scope">
-                       {{scope.row.zhanghao}}
-                     </template>
-                </el-table-column>
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="xingming"
-                   :header-align="contents.tableAlign"
-		    label="姓名">
-		     <template slot-scope="scope">
-                       {{scope.row.xingming}}
-                     </template>
-                </el-table-column>
-              <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                  prop="shhf"
-                 :header-align="contents.tableAlign"
-                  label="审核回复">
-              </el-table-column>
               <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign" 
                   prop="status"
                  :header-align="contents.tableAlign"
-                  label="审核状态">
+                  label="预约状态">
                   <template slot-scope="scope">
-                    <span style="margin-right:10px">{{scope.row.sfsh}}</span>
+                    {{ formatStatus(scope.row.sfsh) }}
                   </template>
+              </el-table-column>
+              <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign" 
+                  prop="yuyueshuoming"
+                 :header-align="contents.tableAlign"
+                  label="说明">
+                  <template slot-scope="scope">
+                    {{ scope.row.yuyueshuoming || '-' }}
+                  </template>
+              </el-table-column>
+              <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign"
+                  prop="shhf"
+                 :header-align="contents.tableAlign"
+                  label="审核回复">
               </el-table-column>
               <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign" 
                   v-if="checkAuth('审核')"
@@ -244,6 +261,7 @@ export default {
       addOrUpdateFlag:false,
       kechenganpaiCrossAddOrUpdateFlag: false,
       contents:{"searchBtnFontColor":"#333","pagePosition":"1","inputFontSize":"14px","inputBorderRadius":"4px","tableBtnDelFontColor":"#333","tableBtnIconPosition":"1","searchBtnHeight":"40px","tableBgColor":"rgba(255, 255, 255, 1)","inputIconColor":"#C0C4CC","searchBtnBorderRadius":"4px","tableStripe":false,"btnAdAllWarnFontColor":"#333","tableBtnDelBgColor":"rgba(255, 69, 0, 0.41)","searchBtnIcon":"1","tableSize":"medium","searchBtnBorderStyle":"solid","text":{"padding":"10px 0","boxShadow":"0 0 0px rgba(0,0,0,.1)","margin":"0 auto","borderColor":"rgba(255, 255, 255, 1)","backgroundColor":"rgba(255, 178, 150, 1)","color":"#333","borderRadius":"40%","borderWidth":"10px","width":"80%","lineHeight":"80%","fontSize":"24px","borderStyle":"dashed "},"tableSelection":true,"searchBtnBorderWidth":"1px","tableContentFontSize":"14px","searchBtnBgColor":"#fff","inputTitleSize":"14px","btnAdAllBorderColor":"rgba(255, 255, 255, 1)","pageJumper":true,"btnAdAllIconPosition":"1","searchBoxPosition":"1","tableBtnDetailFontColor":"#333","tableBtnHeight":"40px","pagePager":true,"searchBtnBorderColor":"#DCDFE6","tableHeaderFontColor":"rgba(66, 66, 67, 1)","inputTitle":"1","tableBtnBorderRadius":"20px","btnAdAllFont":"1","btnAdAllDelFontColor":"#333","tableBtnIcon":"1","btnAdAllHeight":"auto","btnAdAllWarnBgColor":"rgba(94, 173, 207, 0.72)","btnAdAllBorderWidth":"15px","tableStripeFontColor":"#606266","tableBtnBorderStyle":"dashed ","inputHeight":"40px","btnAdAllBorderRadius":"20px","btnAdAllDelBgColor":"rgba(94, 173, 207, 0.72)","pagePrevNext":true,"btnAdAllAddBgColor":"rgba(94, 173, 207, 0.72)","searchBtnFont":"1","tableIndex":true,"btnAdAllIcon":"1","tableSortable":false,"pageSizes":false,"tableFit":true,"pageBtnBG":false,"searchBtnFontSize":"14px","tableBtnEditBgColor":"rgba(249, 173, 147, 1)","box":{"padding":"10px 20px","boxShadow":"0 0 6px rgba(0,0,0,0)","flag":"2","backgroundImage":"","background":"#fff"},"inputBorderWidth":"1px","inputFontPosition":"2","inputFontColor":"#333","pageEachNum":10,"tableHeaderBgColor":"rgba(94, 173, 207, 0.72)","inputTitleColor":"#333","btnAdAllBoxPosition":"1","tableBtnDetailBgColor":"rgba(249, 173, 147, 1)","inputIcon":"0","searchBtnIconPosition":"1","btnAdAllFontSize":"14px","inputBorderStyle":"solid","tableHoverFontColor":"#333","inputBgColor":"#fff","pageStyle":true,"pageTotal":true,"btnAdAllAddFontColor":"#333","tableBtnFont":"1","tableContentFontColor":"rgba(92, 93, 95, 1)","inputBorderColor":"#DCDFE6","tableShowHeader":true,"tableHoverBgColor":"#f5f5f5","tableBtnFontSize":"14px","tableBtnBorderColor":"rgba(255, 255, 255, 1)","inputIconPosition":"1","tableBorder":false,"btnAdAllBorderStyle":"solid dashed","tableBtnBorderWidth":"2px","tableStripeBgColor":"#F5F7FA","tableBtnEditFontColor":"#333","tableAlign":"center"},
+      contents:{"searchBtnFontColor":"#333","pagePosition":"1","inputFontSize":"14px","inputBorderRadius":"4px","tableBtnDelFontColor":"#333","tableBtnIconPosition":"1","searchBtnHeight":"40px","tableBgColor":"rgba(255, 255, 255, 1)","inputIconColor":"#C0C4CC","searchBtnBorderRadius":"4px","tableStripe":false,"btnAdAllWarnFontColor":"#333","tableBtnDelBgColor":"rgba(255, 69, 0, 0.41)","searchBtnIcon":"1","tableSize":"medium","searchBtnBorderStyle":"solid","text":{"padding":"10px 0","boxShadow":"0 0 0px rgba(0,0,0,.1)","margin":"0 auto","borderColor":"rgba(255, 255, 255, 1)","backgroundColor":"rgba(255, 178, 150, 1)","color":"#333","borderRadius":"40%","borderWidth":"10px","width":"80%","lineHeight":"80%","fontSize":"24px","borderStyle":"dashed "},"tableSelection":false,"searchBtnBorderWidth":"1px","tableContentFontSize":"14px","searchBtnBgColor":"#fff","inputTitleSize":"14px","btnAdAllBorderColor":"rgba(255, 255, 255, 1)","pageJumper":true,"btnAdAllIconPosition":"1","searchBoxPosition":"1","tableBtnDetailFontColor":"#333","tableBtnHeight":"40px","pagePager":true,"searchBtnBorderColor":"#DCDFE6","tableHeaderFontColor":"rgba(66, 66, 67, 1)","inputTitle":"1","tableBtnBorderRadius":"20px","btnAdAllFont":"1","btnAdAllDelFontColor":"#333","tableBtnIcon":"1","btnAdAllHeight":"auto","btnAdAllWarnBgColor":"rgba(94, 173, 207, 0.72)","btnAdAllBorderWidth":"15px","tableStripeFontColor":"#606266","tableBtnBorderStyle":"dashed ","inputHeight":"40px","btnAdAllBorderRadius":"20px","btnAdAllDelBgColor":"rgba(94, 173, 207, 0.72)","pagePrevNext":true,"btnAdAllAddBgColor":"rgba(94, 173, 207, 0.72)","searchBtnFont":"1","tableIndex":false,"btnAdAllIcon":"1","tableSortable":false,"pageSizes":false,"tableFit":true,"pageBtnBG":false,"searchBtnFontSize":"14px","tableBtnEditBgColor":"rgba(249, 173, 147, 1)","box":{"padding":"10px 20px","boxShadow":"0 0 6px rgba(0,0,0,0)","flag":"2","backgroundImage":"","background":"#fff"},"inputBorderWidth":"1px","inputFontPosition":"2","inputFontColor":"#333","pageEachNum":10,"tableHeaderBgColor":"rgba(94, 173, 207, 0.72)","inputTitleColor":"#333","btnAdAllBoxPosition":"1","tableBtnDetailBgColor":"rgba(249, 173, 147, 1)","inputIcon":"0","searchBtnIconPosition":"1","btnAdAllFontSize":"14px","inputBorderStyle":"solid","tableHoverFontColor":"#333","inputBgColor":"#fff","pageStyle":true,"pageTotal":true,"btnAdAllAddFontColor":"#333","tableBtnFont":"1","tableContentFontColor":"rgba(92, 93, 95, 1)","inputBorderColor":"#DCDFE6","tableShowHeader":true,"tableHoverBgColor":"#f5f5f5","tableBtnFontSize":"14px","tableBtnBorderColor":"rgba(255, 255, 255, 1)","inputIconPosition":"1","tableBorder":false,"btnAdAllBorderStyle":"solid dashed","tableBtnBorderWidth":"2px","tableStripeBgColor":"#F5F7FA","tableBtnEditFontColor":"#333","tableAlign":"center"},
       layouts: '',
 
 
@@ -425,6 +443,11 @@ export default {
     },
     headerCellStyle({ row, rowIndex}){
       return {backgroundColor: this.contents.tableHeaderBgColor}
+    },
+    formatStatus(value) {
+      if (value === '是') return '已通过'
+      if (value === '否') return '未通过'
+      return '待审核'
     },
     // 表格按钮
     contentTableBtnStyleChange(){
@@ -742,10 +765,16 @@ export default {
 	.table-content {
 		background: transparent;
 	}
+	.table-card {
+		background: #f4f4f4;
+		border: 1px solid #e2e2e2;
+		border-radius: 12px;
+		padding: 12px;
+	}
 	
 	.tables::v-deep .el-table__body tr {
-				background-color: rgba(255, 255, 255, 1) !important;
-				color: rgba(92, 93, 95, 1) !important;
+				background-color: #ffffff !important;
+				color: #333333 !important;
 	 }
 	.tables::v-deep .el-table__body tr.el-table__row--striped td {
 	    background: transparent;
@@ -759,5 +788,23 @@ export default {
 	   	   background-color: #f5f5f5 !important;
 	   	   	   color: #333 !important;
 	   	 }
+	.tables::v-deep .el-table {
+		border: 1px solid #e4e4e4;
+		border-radius: 10px;
+		overflow: hidden;
+	}
+	.tables::v-deep .el-table th,
+	.tables::v-deep .el-table td {
+		border-bottom: 1px solid #ececec;
+	}
+	.tables::v-deep .el-table th {
+		background: #efefef !important;
+		color: #222 !important;
+		font-weight: 600;
+	}
+	.tables::v-deep .cell {
+		white-space: pre-wrap;
+		word-break: break-word;
+	}
 	 
 </style>

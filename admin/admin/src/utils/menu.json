@@ -83,7 +83,7 @@
                         "tableName": "kechenganpai"
                     }
                 ],
-                "menu": "教练排班统筹管理"
+                "menu": "教练排班管理"
             },
             {
                 "child": [
@@ -153,7 +153,7 @@
                         "tableName": "cuotiban"
                     }
                 ],
-                "menu": "理论学习考试统筹管理"
+                "menu": "理论学习考试管理"
             },
             {
                 "child": [
@@ -192,7 +192,7 @@
                         "tableName": "quxiaokecheng"
                     }
                 ],
-                "menu": "练车预约统筹管理"
+                "menu": "练车预约管理"
             },
             {
                 "child": [
