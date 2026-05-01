@@ -129,14 +129,14 @@ var roleMenus = {
                 ]
             },
             {
-                name: '教练排班统筹管理',
+                name: '教练排班管理',
                 children: [
                     {name: '排班与计划管理', url: './pages/kechenganpai/list.html'},
                     {name: '排班信息维护', url: './pages/kechenganpai/list.html'}
                 ]
             },
             {
-                name: '理论学习考试统筹管理',
+                name: '理论学习考试管理',
                 children: [
                     {name: '学习资源管理', url: './pages/shipin/list.html'},
                     {name: '题库与规则管理', url: './pages/exampaper/list.html'},
@@ -145,7 +145,7 @@ var roleMenus = {
                 ]
             },
             {
-                name: '练车预约统筹管理',
+                name: '练车预约管理',
                 children: [
                     {name: '名额规则配置', url: './pages/yuyuelianche/list.html'},
                     {name: '预约信息查询', url: './pages/yuyuelianche/list.html'},
